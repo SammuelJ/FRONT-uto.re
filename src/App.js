@@ -7,45 +7,63 @@ class App extends Component {
             value: "",
             shortUrl: {},
             message: ["Link not found"],
+            shortedLink: "",
         };
     }
     handleChange = (event) => {
         this.setState({ value: event.target.value });
     };
 
-    handleSubmit = (event) => {
+    handleSubmit = async (event) => {
+        event.preventDefault();
         const requestOptions = {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ longUrl: this.state.value }),
         };
-        console.log(requestOptions);
-        fetch("https://utore.herokuapp.com/", requestOptions)
-            .then((response) => response.json())
-            .then((data) => {
-                console.log(data);
-                this.setState({ shortUrl: data });
+        let request = await fetch(
+            "https://utore.herokuapp.com/",
+            requestOptions
+        );
+        request = await request.json();
+        this.setState({
+            shortUrl: request,
+        });
+        if (request.shortId) {
+            this.setState({
+                shortedLink: "https://uto.re/" + request.shortId,
             });
-        event.preventDefault();
+        }
     };
+    componentDidUpdate() {
+        console.log(this.state);
+    }
     render() {
         const urlParams = new URLSearchParams(window.location.search);
         const message = urlParams.get("m");
-        console.log(message);
         return (
             <div>
                 <h1>utore - URL Shortener</h1>
-                <input
-                    type="text"
-                    value={this.state.value}
-                    onChange={this.handleChange}
-                    placeholder={"Paste a long URL here"}
-                />
-                <button onClick={this.handleSubmit}>Shorten</button>
+                <form onSubmit={this.handleSubmit}>
+                    <input
+                        type="text"
+                        value={this.state.value}
+                        onChange={this.handleChange}
+                        placeholder={"Paste a long URL here"}
+                    />
+                    <button onClick={this.handleSubmit}>Shorten</button>
+                </form>
                 <p>
-                    {this.state.shortUrl.shortId || this.state.shortUrl.error}
+                    {this.state.message[message] || this.state.shortUrl.error || (
+                        <a
+                            href={this.state.shortedLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            {this.state.shortedLink}
+                        </a>
+                    )}
                 </p>
-                <p>{this.state.message[message]}</p>
             </div>
         );
     }
