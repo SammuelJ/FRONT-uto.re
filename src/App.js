@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 class App extends Component {
     constructor(props) {
@@ -13,7 +15,6 @@ class App extends Component {
     handleChange = (event) => {
         this.setState({ value: event.target.value });
     };
-
     handleSubmit = async (event) => {
         event.preventDefault();
         const requestOptions = {
@@ -35,14 +36,25 @@ class App extends Component {
             });
         }
     };
-    componentDidUpdate() {
-        console.log(this.state);
-    }
-    render() {
+    componentDidMount() {
         const urlParams = new URLSearchParams(window.location.search);
         const message = urlParams.get("m");
+        if (message == 0) {
+            toast.error("😱 This link doesn't exist !", {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        }
+    }
+    render() {
         return (
             <div id="main">
+                <ToastContainer />
                 <h1>utore - URL Shortener</h1>
                 <form onSubmit={this.handleSubmit}>
                     <input
@@ -54,7 +66,7 @@ class App extends Component {
                     <button onClick={this.handleSubmit}>Shorten</button>
                 </form>
                 <p id="message">
-                    {this.state.message[message] || this.state.shortUrl.error || (
+                    {this.state.shortUrl.error || (
                         <a
                             href={this.state.shortedLink}
                             target="_blank"

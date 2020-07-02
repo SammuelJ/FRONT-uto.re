@@ -68,3 +68,9 @@ a:hover {
 #message {
     font-size: 3rem;
 }
+#notfound {
+    position: absolute;
+    top: 10vh;
+    left: 48vw;
+    color: red;
+}
