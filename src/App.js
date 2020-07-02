@@ -39,7 +39,7 @@ class App extends Component {
     componentDidMount() {
         const urlParams = new URLSearchParams(window.location.search);
         const message = urlParams.get("m");
-        if (message == 0) {
+        if (message === "0") {
             toast.error("😱 This link doesn't exist !", {
                 position: "top-center",
                 autoClose: 5000,
