@@ -12,6 +12,7 @@ body {
 }
 h1 {
     font-weight: 400;
+    font-size: 3.5rem;
 }
 input {
     border-radius: 2rem 0 0 2rem;
@@ -21,6 +22,7 @@ input {
     padding: 0;
     margin: 0;
     padding-left: 20px;
+    color: black;
 }
 input:focus {
     border: none;
@@ -35,18 +37,34 @@ button {
     color: white;
     font-weight: thin;
     cursor: pointer;
-    font-size: 1rem;
     border-radius: 0 2rem 2rem 0;
 }
 button:focus {
     border: none;
     outline: none;
 }
-code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-        monospace;
-}
 a {
     text-decoration: none;
     color: white;
+}
+a:hover {
+    text-decoration: none;
+    color: rgb(54, 151, 67);
+}
+#main {
+    margin-top: 15vh;
+}
+#why {
+    background-color: white;
+    color: black;
+    margin-top: 6vh;
+    padding: 5vh 18vw;
+}
+#why h2 {
+    font-size: 2.5rem;
+    margin: 0 0 5vh 0;
+    font-weight: 400;
+}
+#message {
+    font-size: 3rem;
 }

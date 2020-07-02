@@ -42,7 +42,7 @@ class App extends Component {
         const urlParams = new URLSearchParams(window.location.search);
         const message = urlParams.get("m");
         return (
-            <div>
+            <div id="main">
                 <h1>utore - URL Shortener</h1>
                 <form onSubmit={this.handleSubmit}>
                     <input
@@ -53,7 +53,7 @@ class App extends Component {
                     />
                     <button onClick={this.handleSubmit}>Shorten</button>
                 </form>
-                <p>
+                <p id="message">
                     {this.state.message[message] || this.state.shortUrl.error || (
                         <a
                             href={this.state.shortedLink}
