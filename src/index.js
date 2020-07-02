@@ -11,7 +11,7 @@ ReactDOM.render(
             <Route exact path="/">
                 <App />
             </Route>
-            <Route exact path="/:id">
+            <Route path="/:id">
                 <TolongURL />
             </Route>
         </Switch>
